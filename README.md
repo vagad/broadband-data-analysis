@@ -10,16 +10,30 @@ To run code or even generally connect to the MySQL instance, you have to start o
 
 Variables in 477 data: 
 Lrn = logical record number
+
 Blockcode = fips code
+
 ProviderId
+
 Frn = code pertaining to each company
+
 ProviderName
+
 DbaName
+
 HoldingName
+
 HoldingNum
+
 FccHoldingName
+
 State = state code
+
 TechCode = FCC tech code pertaining to broadband offering
+
 UpSpeed = upload speed
+
 DownSpeed = download speed
+
 477year = year the data is for
+
