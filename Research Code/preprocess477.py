@@ -5,7 +5,7 @@ import MySQLdb
 import re
 import time
 
-def filter_lines(in_filename, out_filename):
+def filter_lines(in_filename, out_filename, year):
     """Read records from in_filename and write records to out_filename if
     the beginning of the line (taken up to the first comma at or after
     position 11) is found in keys (which must be a set of byte strings).
@@ -18,7 +18,7 @@ def filter_lines(in_filename, out_filename):
     last_time_100k = start_time
     last_time_1m = start_time
     with open(in_filename, 'r', encoding='latin-1') as in_f, open(out_filename, 'w') as out_f:
-        out_f.write("Lrn,Blockcode,ProviderId,Frn,ProviderName,DbaName,HoldingName,HoldingNum,FccHoldingName,State,TechCode,UpSpeed,DownSpeed\n")
+        out_f.write("Lrn,Blockcode,ProviderId,Frn,ProviderName,DbaName,HoldingName,HoldingNum,FccHoldingName,State,TechCode,UpSpeed,DownSpeed,477year\n")
         for line in in_f:
             sentence = re.sub(r'(?!(([^"]*"){2})*[^"]*$),', '', line)
             sentence = sentence.replace('"', '')
@@ -46,7 +46,7 @@ def filter_lines(in_filename, out_filename):
                 state = vals[8]
                 upload = vals[13]
                 download = vals[12]
-                final_line = "{},{},{},{},{},{},{},{},{},{},{},{},{}\n".format(lrn,fips,provider_id,frn,provider_name,dba_name,hoco_name,hoco_num,hoco_final,state,tech_code,upload,download)
+                final_line = "{},{},{},{},{},{},{},{},{},{},{},{},{},{}\n".format(lrn,fips,provider_id,frn,provider_name,dba_name,hoco_name,hoco_num,hoco_final,state,tech_code,upload,download,year)
                 out_f.write(final_line)
                 # print(final_line)
                 new_vals += 1
@@ -86,19 +86,19 @@ def filter_lines(in_filename, out_filename):
 
 
 in_filename1 = "/Users/VamsiG/Music/Research_Work/fbd_us_without_satellite_dec2014_V2.csv"
-out_filename1 = "/Users/VamsiG/Music/Research_Work/FCC_Output_2014.txt"
+out_filename1 = "/Users/VamsiG/Music/Research_Work/Research_Code/FCC_Output_2014.txt"
 
 in_filename2 = "/Users/VamsiG/Music/Research_Work/fbd_us_without_satellite_dec2015_v2.csv"
-out_filename2 = "/Users/VamsiG/Music/Research_Work/FCC_Output_2015.txt"
+out_filename2 = "/Users/VamsiG/Music/Research_Work/Research_Code/FCC_Output_2015.txt"
 
-# in_filename3 = "/Users/VamsiG/Data/Research_Work/fbd_us_without_satellite_dec2016_v1.csv"
-# out_filename3 = "/Users/VamsiG/Data/2014_Data/FCC_Output_2016.txt"
+in_filename3 = "/Users/VamsiG/Music/Research_Work/fbd_us_without_satellite_dec2016_v1.csv"
+out_filename3 = "/Users/VamsiG/Music/Research_Work/Research_Code/FCC_Output_2016.txt"
 
-filter_lines(in_filename1,out_filename1)
-print("Completed FILE 1")
-filter_lines(in_filename2,out_filename2)
-print("Completed FILE 2")
-# filter_lines(in_filename3,out_filename3)
-# print("Completed FILE 3")
+# filter_lines(in_filename1,out_filename1, "2014")
+# print("Completed FILE 1")
+# filter_lines(in_filename2,out_filename2, "2015")
+# print("Completed FILE 2")
+filter_lines(in_filename3,out_filename3, "2016")
+print("Completed FILE 3")
 
 
